@@ -3335,7 +3335,7 @@ class GenerationMixin(ContinuousMixin):
         # - add length penalty
         topk_log_probs = topk_log_probs / ((cur_len + 1 - decoder_prompt_len) ** length_penalty)
         # - make sure no scores can be added anymore if beam is full and early stopping is on
-        beams_in_batch_are_full = torch.all(is_sent_finished, axis=-1, keepdims=True) & (early_stopping is True)
+        beams_in_batch_are_full = torch.all(is_sent_finished, dim=-1, keepdims=True) & (early_stopping is True)
         topk_log_probs += beams_in_batch_are_full.to(torch.float32) * -1.0e9
         # - make sure no scores can be added anymore if improvement is not possible
         topk_log_probs += (~is_early_stop_heuristic_unsatisfied).to(torch.float32) * -1.0e9

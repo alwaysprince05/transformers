@@ -102,10 +102,10 @@ def convert_coco_poly_to_mask(segmentations, height: int, width: int, device: to
         if len(mask.shape) < 3:
             mask = mask[..., None]
         mask = torch.as_tensor(mask, dtype=torch.uint8, device=device)
-        mask = torch.any(mask, axis=2)
+        mask = torch.any(mask, dim=2)
         masks.append(mask)
     if masks:
-        masks = torch.stack(masks, axis=0)
+        masks = torch.stack(masks, dim=0)
     else:
         masks = torch.zeros((0, height, width), dtype=torch.uint8, device=device)
 

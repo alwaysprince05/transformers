@@ -843,7 +843,7 @@ class Pop2PianoForConditionalGeneration(Pop2PianoPreTrainedModel, GenerationMixi
             input_features[~attention_mask[:, 0].bool()] = 0.0
 
             # since self.mel_conditioner adds a new array at the front of inputs_embeds we need to do the same for attention_mask to keep the shapes same
-            attention_mask = torch.concatenate([attention_mask[:, 0].view(-1, 1), attention_mask], axis=1)
+            attention_mask = torch.concatenate([attention_mask[:, 0].view(-1, 1), attention_mask], dim=1)
             return input_features, attention_mask
 
         return input_features, None

@@ -422,7 +422,7 @@ class BrosRelationExtractor(nn.Module):
         query_layer = self.query(self.drop(query_layer))
 
         dummy_vec = self.dummy_node.unsqueeze(0).repeat(1, key_layer.size(1), 1)
-        key_layer = torch.cat([key_layer, dummy_vec], axis=0)
+        key_layer = torch.cat([key_layer, dummy_vec], dim=0)
         key_layer = self.key(self.drop(key_layer))
 
         query_layer = query_layer.view(

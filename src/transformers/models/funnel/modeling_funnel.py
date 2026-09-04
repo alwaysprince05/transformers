@@ -241,7 +241,7 @@ class FunnelAttentionStructure(nn.Module):
         enc_slice = tuple([slice(None)] * axis + [axis_slice])
         if self.config.separate_cls:
             cls_slice = tuple([slice(None)] * axis + [slice(None, 1)])
-            tensor = torch.cat([tensor[cls_slice], tensor], axis=axis)
+            tensor = torch.cat([tensor[cls_slice], tensor], dim=axis)
         return tensor[enc_slice]
 
     def pool_tensor(

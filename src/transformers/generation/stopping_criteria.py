@@ -523,7 +523,7 @@ class StopStringCriteria(StoppingCriteria):
 
         # Tokens continue the string if the cumsum() so far is one of the valid positions for that token
         # Note that we're actually tracking one cumsum() for each possible end_length
-        later_match = torch.any(cumsum[:, :-1, :, None] == valid_positions[:, :, :, :, None], axis=-2)
+        later_match = torch.any(cumsum[:, :-1, :, None] == valid_positions[:, :, :, :, None], dim=-2)
 
         # The match vector is a boolean vector that indicates which positions have valid tokens
         match = torch.cat([initial_match, later_match], dim=1)

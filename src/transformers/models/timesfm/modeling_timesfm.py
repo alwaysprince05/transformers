@@ -760,14 +760,14 @@ class TimesFmModelForPrediction(TimesFmPreTrainedModel):
             new_ts = fprop_outputs[:, -1, :output_patch_len, 0]
             new_full_ts = fprop_outputs[:, -1, :output_patch_len, :]
             full_outputs.append(new_full_ts)
-            final_out = torch.concatenate([final_out, new_ts], axis=-1)
+            final_out = torch.concatenate([final_out, new_ts], dim=-1)
 
         if return_forecast_on_context:
-            full_outputs = torch.concatenate(full_outputs, axis=1)[
+            full_outputs = torch.concatenate(full_outputs, dim=1)[
                 :, : (context_len - self.config.patch_length + self.horizon_len), :
             ]
         else:
-            full_outputs = torch.concatenate(full_outputs, axis=1)[:, 0 : self.horizon_len, :]
+            full_outputs = torch.concatenate(full_outputs, dim=1)[:, 0 : self.horizon_len, :]
 
         mean_outputs = full_outputs[:, :, 0]
         if window_size is not None:
